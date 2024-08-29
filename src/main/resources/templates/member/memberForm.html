@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<form role="form" action="/members/new" th:object="${memberForm}" method="post">
+    <div class="container">
+        <h1>회원가입</h1>
+        <hr>
+
+        <label for="id"><b>아이디</b></label>
+        <input type="text" th:field="*{id}" placeholder="아이디를 입력하세요"
+               th:class="${#fields.hasErrors('id')}? 'form-control fieldError' : 'form-control'"
+               name="id" id="id" required>
+        <p th:if="${#fields.hasErrors('name')}"
+            th:errors="*{name}"></p>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="비밀번호를 입력하세요" name="psw" id="psw" required>
+
+        <label for="psw-repeat"><b>Repeat Password</b></label>
+        <input type="password" placeholder="비밀번호를 입력하세요" name="psw-repeat" id="psw-repeat" required>
+
+        <label for="psw-repeat"><b>Repeat Password</b></label>
+        <input type="text" placeholder="이름를 입력하세요" name="psw-repeat" id="psw-repeat" required>
+
+        <hr>
+
+        <label for="psw-repeat"><b>Repeat Password</b></label>
+        <input type="password" placeholder="도시" name="psw-repeat" id="psw-repeat" required>
+
+        <label for="psw-repeat"><b>Repeat Password</b></label>
+        <input type="password" placeholder="거리" name="psw-repeat" id="psw-repeat" required>
+
+        <label for="psw-repeat"><b>Repeat Password</b></label>
+        <input type="password" placeholder="우편번호" name="psw-repeat" id="psw-repeat" required>
+
+        <button type="submit" class="registerbtn">가입하기</button>
+    </div> <!-- class="container" -->
+
+    <div class="container signin">
+        <p>아이디가 있으신가요? <a href="#">로그인 하기</a>.</p>
+    </div>
+</form> <!-- form -->
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
+    <form role="form" action="/members/new" th:object="${memberForm}" method="post">
+        <div class="form-group">
+            <label th:for="name">이름</label>
+            <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요"
+                   th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('name')}"
+               th:errors="*{name}">Incorrect date</p>
+        </div>
+        <div class="form-group">
+            <label th:for="city">도시</label>
+            <input type="text" th:field="*{city}" class="form-control" placeholder="도시를 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="street">거리</label>
+            <input type="text" th:field="*{street}" class="form-control"
+                   placeholder="거리를 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="zipcode">우편번호</label>
+            <input type="text" th:field="*{zipcode}" class="form-control"
+                   placeholder="우편번호를 입력하세요">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br/>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+
+
+</body>
+</html>
