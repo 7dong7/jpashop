@@ -18,11 +18,19 @@ public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long member_id;
 
+    private String id;
+    private String password;
     private String name;
 
     @Embedded
     private Address address;
 
+    private Member() {}
 
-
+    public Member(String id, String password, String name, Address address) {
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.address = address;
+    }
 }

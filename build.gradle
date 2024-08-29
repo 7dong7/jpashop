@@ -33,6 +33,7 @@ dependencies {
 	// @NotEmpty 사용
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	// DB 설정
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
