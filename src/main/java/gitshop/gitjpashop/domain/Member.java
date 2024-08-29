@@ -25,7 +25,7 @@ public class Member {
     @Embedded
     private Address address;
 
-    private Member() {}
+    protected Member() {}
 
     public Member(String id, String password, String name, Address address) {
         this.id = id;
