@@ -17,12 +17,14 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    // 회원 가입
     @GetMapping("member/register")
     public String createForm(Model model){
         model.addAttribute("memberForm", new MemberForm());
         return "member/memberForm";
     }
 
+    // 회원 가입 기능
     @PostMapping("member/register")
     public String create(@Valid MemberForm  form, BindingResult result) {
                         // bindingResult는 검증 객체 뒤에 와야 된다.
@@ -41,6 +43,13 @@ public class MemberController {
         memberService.join(member);
 
         return "redirect:/";
+    }
+
+    // 로그인
+    @GetMapping("/member/login")
+    public String loginForm(Model model){
+
+        return "member/loginForm";
     }
 
 
