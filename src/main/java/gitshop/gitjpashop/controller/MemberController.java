@@ -26,7 +26,7 @@ public class MemberController {
 
     // 회원 가입 기능
     @PostMapping("member/register")
-    public String create(@Valid MemberForm  form, BindingResult result) {
+    public String create(@Valid MemberForm form, BindingResult result) {
                         // bindingResult는 검증 객체 뒤에 와야 된다.
 
         if(result.hasErrors()) { // 바인딩 실패시
@@ -40,17 +40,6 @@ public class MemberController {
 //        Member member = new Member(form.getEmail(), form.getPassword(), form.getName(), address);
 
         // 멤버 저장
-        String id = member.getEmail();
-        String password = member.getPassword();
-        String name = member.getName();
-
-        System.out.println("------------------------------------");
-        System.out.println("name = " + name);
-        System.out.println("id = " + id);
-        System.out.println("password = " + password);
-        System.out.println("------------------------------------");
-
-        memberService.join(member);
 
         return "redirect:/";
     }
