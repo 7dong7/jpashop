@@ -37,9 +37,19 @@ public class MemberController {
         Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
 
         // 멤버 정보 입력
-        Member member = new Member(form.getId(), form.getPassword(), form.getName(), address);
+//        Member member = new Member(form.getEmail(), form.getPassword(), form.getName(), address);
 
         // 멤버 저장
+        String id = member.getEmail();
+        String password = member.getPassword();
+        String name = member.getName();
+
+        System.out.println("------------------------------------");
+        System.out.println("name = " + name);
+        System.out.println("id = " + id);
+        System.out.println("password = " + password);
+        System.out.println("------------------------------------");
+
         memberService.join(member);
 
         return "redirect:/";
@@ -47,7 +57,7 @@ public class MemberController {
 
     // 로그인
     @GetMapping("/member/login")
-    public String loginForm(Model model){
+    public String login(Model model){
 
         return "member/loginForm";
     }

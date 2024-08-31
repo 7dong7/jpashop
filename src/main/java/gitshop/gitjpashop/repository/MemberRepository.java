@@ -1,6 +1,6 @@
 package gitshop.gitjpashop.repository;
 
-import gitshop.gitjpashop.QueryDSLConfig;
+import gitshop.gitjpashop.config.QueryDSLConfig;
 import gitshop.gitjpashop.domain.Member;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;

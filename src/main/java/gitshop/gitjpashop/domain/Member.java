@@ -16,21 +16,32 @@ public class Member {
      */
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long member_id;
+    @Column(name = "member_id")
+    private Long id;
 
-    private String id;
+    @Column(unique = true, length = 50)
+    private String email;
     private String password;
+
+    @Column(unique = true, length = 50)
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private MemberRole role;
 
     @Embedded
     private Address address;
 
+
+    // 기본 생성자
     protected Member() {}
 
-    public Member(String id, String password, String name, Address address) {
-        this.id = id;
+    // 생성자
+    public Member(String email, String password, String name, Address address, MemberRole role) {
+        this.email = email;
         this.password = password;
         this.name = name;
         this.address = address;
+        this.role = role;
     }
 }

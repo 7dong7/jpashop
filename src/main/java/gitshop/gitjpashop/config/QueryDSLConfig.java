@@ -1,4 +1,4 @@
-package gitshop.gitjpashop;
+package gitshop.gitjpashop.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

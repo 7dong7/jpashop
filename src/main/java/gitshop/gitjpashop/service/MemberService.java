@@ -17,7 +17,7 @@ public class MemberService {
     public Long join(Member member) {
 
         memberRepository.save(member);
-        return member.getMember_id();
+        return member.getId();
     }
 
 
