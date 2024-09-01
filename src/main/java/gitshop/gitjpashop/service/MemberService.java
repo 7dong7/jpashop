@@ -12,13 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
+    
+    // 회원 등록
     @Transactional
-    public Long join(Member member) {
-
+    public void join(Member member) {
         memberRepository.save(member);
-        return member.getId();
     }
 
+    // 회원 조회
+    public Member findOne(Long id) {
+        return memberRepository.findOne(id);
+    }
 
 }

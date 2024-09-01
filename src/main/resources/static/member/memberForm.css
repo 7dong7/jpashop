@@ -10,10 +10,14 @@
 }
 
 /* Full-width input fields */
-input[type=text], input[type=password] {
+form label {
+    display:block;
+    margin:30px 0 0 0;
+}
+input[type=text], input[type=password], input[type=email] {
     width: 100%;
     padding: 15px;
-    margin: 5px 0 22px 0;
+    margin: 5px 0 10px 0;
     display: inline-block;
     border: none;
     background: #f1f1f1;

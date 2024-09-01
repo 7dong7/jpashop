@@ -2,6 +2,11 @@ package gitshop.gitjpashop.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 
 @Entity
@@ -22,21 +27,22 @@ public class Member {
     @Column(unique = true, length = 50)
     private String email;
 
-    @Column(length = 20)
+    @Column(length = 200)
     private String password;
 
     @Column(unique = true, length = 50)
     private String name;
 
     @Embedded
-    private Address address; // 주소
+    private Address address;    // 주소
 
     @Enumerated(EnumType.STRING)
-    private MemberRole role;
+    private MemberRole role;    // 회원 권한
 
     @Enumerated(EnumType.STRING)
-    private MemberStatus status;
+    private MemberStatus status;    // 회원 상태
 
+    private LocalDateTime registerDate;     // 등록 날짜
 
     // 기본 생성자
     protected Member() {}
@@ -49,5 +55,6 @@ public class Member {
         this.address = address;
         this.role = role;
         this.status = status;
+        this.registerDate = LocalDateTime.now();
     }
 }

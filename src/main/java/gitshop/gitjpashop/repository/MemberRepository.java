@@ -19,7 +19,6 @@ public class MemberRepository {
     // 멤버 등록 - 1명
     public void save(Member member){
         em.persist(member);
-
     }
 
     // 멤버 조회 - 1명

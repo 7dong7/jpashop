@@ -17,7 +17,7 @@
             <input type="email" th:field="*{email}" placeholder="이메일(아이디)을 입력하세요"
                    th:class="${#fields.hasErrors('email')}? 'form-control fieldError' : 'form-control'">
             <p th:if="${#fields.hasErrors('email')}"
-                th:errors="*{id}"></p>
+                th:errors="*{email}"></p>
 
             <label for="password"><b>비밀번호</b></label>
             <input type="password" th:field="*{password}" placeholder="비밀번호를 입력하세요"

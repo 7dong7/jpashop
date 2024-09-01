@@ -2,6 +2,8 @@ package gitshop.gitjpashop.controller;
 
 import gitshop.gitjpashop.domain.Address;
 import gitshop.gitjpashop.domain.Member;
+import gitshop.gitjpashop.domain.MemberRole;
+import gitshop.gitjpashop.domain.MemberStatus;
 import gitshop.gitjpashop.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +19,14 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    // 회원 가입
+    // 회원 등록 페이지
     @GetMapping("member/register")
     public String createForm(Model model){
         model.addAttribute("memberForm", new MemberForm());
         return "member/memberForm";
     }
 
-    // 회원 가입 기능
+    // 회원 등록
     @PostMapping("member/register")
     public String create(@Valid MemberForm form, BindingResult result) {
                         // bindingResult는 검증 객체 뒤에 와야 된다.
@@ -37,10 +39,15 @@ public class MemberController {
         Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
 
         // 멤버 정보 입력
-//        Member member = new Member(form.getEmail(), form.getPassword(), form.getName(), address);
+        Member member = new Member(form.getEmail(), form.getPassword(), form.getName(), address, MemberRole.USER, MemberStatus.ING);
 
         // 멤버 저장
+        memberService.join(member);
 
+        // 저장된 멤버 조회
+//        Member findMember = memberService.findOne(member.getId());
+
+        // 메인으로
         return "redirect:/";
     }
 
