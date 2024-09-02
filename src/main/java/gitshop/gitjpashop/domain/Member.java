@@ -2,11 +2,11 @@ package gitshop.gitjpashop.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -43,6 +43,11 @@ public class Member {
     private MemberStatus status;    // 회원 상태
 
     private LocalDateTime registerDate;     // 등록 날짜
+
+
+    //
+    @OneToMany(mappedBy = "member")
+    private List<Item> items = new ArrayList<>();
 
     // 기본 생성자
     protected Member() {}

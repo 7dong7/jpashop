@@ -1,12 +1,9 @@
 package gitshop.gitjpashop.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -16,12 +13,22 @@ public class Item {
     @Column(name = "item_id")
     private Long id;
 
-    private String member_id;
     private String name;
 
     private int price;
     private int stockQuantity;
-    private Date registerDate;
 
+    private LocalDateTime registerDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public Item(String name, int price, int stockQuantity, Member member) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.registerDate = LocalDateTime.now();
+        this.member = member;
+    }
 }
