@@ -24,6 +24,8 @@ public class Item {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    protected Item() {}
+
     public Item(String name, int price, int stockQuantity, Member member) {
         this.name = name;
         this.price = price;
@@ -31,4 +33,5 @@ public class Item {
         this.registerDate = LocalDateTime.now();
         this.member = member;
     }
+
 }
