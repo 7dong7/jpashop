@@ -4,6 +4,7 @@ import gitshop.gitjpashop.domain.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,11 +27,13 @@ public class InitDb {
     static class InitService {
 
         private final EntityManager em;
+        private final PasswordEncoder passwordEncoder;
 
         // 관리자
         public void dbAdminInit() {
             Address address = new Address("서울", "서대문구", "23412");
-            Member member = new Member("admin@naver.com", "qwerqwer","관리자",
+            String encodePassword = passwordEncoder.encode("qwerqwer");
+            Member member = new Member("admin@naver.com", encodePassword,"관리자",
                     address, MemberRole.ADMIN, MemberStatus.ING);
             em.persist(member);
         }
@@ -66,8 +69,9 @@ public class InitDb {
         }
 
         // 회원 생성자
-        private static Member createMember(String email, String password, String name, Address address) {
-            Member member = new Member(email, password, name, address, MemberRole.USER, MemberStatus.ING);
+        private Member createMember(String email, String password, String name, Address address) {
+            String encodePassword = passwordEncoder.encode(password);
+            Member member = new Member(email, encodePassword, name, address, MemberRole.USER, MemberStatus.ING);
             return member;
         }
     }

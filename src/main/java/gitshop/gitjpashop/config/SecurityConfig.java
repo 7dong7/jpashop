@@ -1,12 +1,21 @@
-/*
 package gitshop.gitjpashop.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-*/
 /**
  *  @Configuration 는 해당 클래스를 spring의 설정 클래스로 정의함
  *  @Configuration 는 Spring 컨테이너에 의해서 관리됨.
@@ -15,34 +24,44 @@ import org.springframework.security.web.SecurityFilterChain;
  *  @EnableWebSecurity 는 spring boot에서 웹 보안을 활성화하는 역할
  *
  *  과거 SecurityConfig는 'WebSecurityConfigurerAdapter'를 extends해서 작성하였으나
- *  최신버전에서는 'SecurityFilterChain'의 사용을 권장함
- *//*
+ *  스프링 시큘리티 5.x 버전에서는 'SecurityFilterChain'의 사용을 권장함
+ *  웹 보안 설정을 더 유연하게 작성할 수 있음
+ */
 
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig {
+@Configuration  // 스프링 설정 클래스임을 나타냅니다.
+@EnableWebSecurity  // 스프링 시큐리티를 활성화합니다.
+public class SecurityConfig{
 
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-                .authorizeHttpRequests((authorizeRequests) -> // 인증, 인가 설정
-                        authorizeRequests
-                                .requestMatchers("/item/register")
-                                .authenticated()
-                                .anyRequest()
-                                .permitAll()
-                )
-                .formLogin((formLogin) -> // 폼 기반 로그인 설정
-                        formLogin
-                                .loginPage("/member/login") // get
-                                .loginProcessingUrl("/member/login") // post -> 스프링 시큐리티가 로그인 프로세스 진행
-                                .defaultSuccessUrl("/")
-                )
-                .build();
-
-
+    // password 암호화
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        // BCryptPasswordEncoder는 비밀번호 암호화 도구
+        // SHA-256를 구현하거나 BCryptPasswordEncoder를 사용
+        return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(authz -> authz // authorizeHttpRequests 메서드를 사용하여 각 URL 패턴에 대해 접근권한을 설정할 수 있다.
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // /admin 주소에는 ADMIN 권한을 가진 사용자만 접근 가능
+                        .requestMatchers("/user/**").hasRole("USER") // /user 주소에는 USER 권한을 가진 사용자만 접근 가능
+                        .anyRequest().permitAll() //
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
+                )
+                .httpBasic(Customizer.withDefaults());
+        return http.build();
+    }
+
+/*    @Bean
+    public UserDetailsService userDetailsService(){
+        UserDetails user = User.withUsername("user").password("{noop}1111").roles("USER").build();
+        return  new InMemoryUserDetailsManager(user);
+    }*/
 }
-*/
 
 
 /*

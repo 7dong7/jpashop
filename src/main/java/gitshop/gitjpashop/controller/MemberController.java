@@ -7,6 +7,7 @@ import gitshop.gitjpashop.domain.MemberStatus;
 import gitshop.gitjpashop.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
     // 회원 등록 페이지
     @GetMapping("member/register")
@@ -38,8 +40,11 @@ public class MemberController {
         // 주소 입력
         Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
 
+        // password 암호화
+        String encodePassword = passwordEncoder.encode(form.getPassword());
+
         // 멤버 정보 입력
-        Member member = new Member(form.getEmail(), form.getPassword(), form.getName(), address, MemberRole.USER, MemberStatus.ING);
+        Member member = new Member(form.getEmail(), encodePassword, form.getName(), address, MemberRole.USER, MemberStatus.ING);
 
         // 멤버 저장
         memberService.join(member);
