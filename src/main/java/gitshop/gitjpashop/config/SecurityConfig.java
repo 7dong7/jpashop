@@ -1,10 +1,12 @@
 package gitshop.gitjpashop.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.User;
@@ -40,25 +42,41 @@ public class SecurityConfig{
         return new BCryptPasswordEncoder();
     }
 
+    // 스프링 시큐리티 css, js, image 등의 정적 리소스 완전 예외처리
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring()
+                .requestMatchers("/css/**","/js/**","/images/**","/fonts/**");
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz // authorizeHttpRequests 메서드를 사용하여 각 URL 패턴에 대해 접근권한을 설정할 수 있다.
+                        .requestMatchers("/","/login","member/register").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN") // /admin 주소에는 ADMIN 권한을 가진 사용자만 접근 가능
                         .requestMatchers("/user/**").hasRole("USER") // /user 주소에는 USER 권한을 가진 사용자만 접근 가능
-                        .anyRequest().permitAll() //
+
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
-                        .permitAll()
+                        .loginPage("/login")    // 작성한 로그인 페이지 
+                        .defaultSuccessUrl("/", true) // 로그인 성공 후 이동페이지
+                        .permitAll() // 누구나 접근 가능
                 )
-                .httpBasic(Customizer.withDefaults());
+                .logout(logout -> logout
+                        .permitAll() // 로그아웃 허용
+                );
+
         return http.build();
     }
 
-/*    @Bean
+    /*@Bean
     public UserDetailsService userDetailsService(){
-        UserDetails user = User.withUsername("user").password("{noop}1111").roles("USER").build();
+        UserDetails user = User
+                .withUsername("email")
+                .password("password")
+                .roles("USER") // 유저 역할 부여
+                .build();
         return  new InMemoryUserDetailsManager(user);
     }*/
 }

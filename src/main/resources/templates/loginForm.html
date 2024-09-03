@@ -6,11 +6,11 @@
 </head>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="loginForm.css" rel="stylesheet">
+<link href="/css/loginForm.css" rel="stylesheet">
 
 <body>
     <div class="container">
-        <form action="/action_page.php">
+        <form action="/login" th:object="${loginForm}" method="post">
             <div class="row">
                 <h2 style="text-align:center">로그인</h2>
                 <div class="vl">
@@ -34,8 +34,8 @@
                         <p>Or sign in manually:</p>
                     </div>
 
-                    <input type="text" name="username" placeholder="아이디" required>
-                    <input type="password" name="password" placeholder="비밀번호" required>
+                    <input type="email" th:field="*{email}" placeholder="아이디" required>
+                    <input type="password" th:field="*{password}" placeholder="비밀번호" required>
                     <input type="submit" value="로그인">
                 </div>
 
@@ -46,7 +46,7 @@
     <div class="bottom-container">
         <div class="row">
             <div class="col">
-                <a href="register" style="color:white" class="btn">회원가입</a>
+                <a href="member/register" style="color:white" class="btn">회원가입</a>
             </div>
             <div class="col">
                 <a href="#" style="color:white" class="btn">비밀번호 찾기</a>

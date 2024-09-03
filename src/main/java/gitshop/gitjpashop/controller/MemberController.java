@@ -1,5 +1,7 @@
 package gitshop.gitjpashop.controller;
 
+import gitshop.gitjpashop.controller.form.LoginForm;
+import gitshop.gitjpashop.controller.form.MemberForm;
 import gitshop.gitjpashop.domain.Address;
 import gitshop.gitjpashop.domain.Member;
 import gitshop.gitjpashop.domain.MemberRole;
@@ -21,14 +23,13 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
-    // 회원 등록 페이지
+    // --------- 회원 등록 ---------
     @GetMapping("member/register")
     public String createForm(Model model){
         model.addAttribute("memberForm", new MemberForm());
         return "member/memberForm";
     }
 
-    // 회원 등록
     @PostMapping("member/register")
     public String create(@Valid MemberForm form, BindingResult result) {
                         // bindingResult는 검증 객체 뒤에 와야 된다.
@@ -56,12 +57,30 @@ public class MemberController {
         return "redirect:/";
     }
 
-    // 로그인
-    @GetMapping("/member/login")
-    public String login(Model model){
-
-        return "member/loginForm";
+    // --------- 로그인 ---------
+    @GetMapping("/login")
+    public String loginPage(Model model){
+        model.addAttribute("loginForm", new LoginForm());
+        return "/loginForm";
     }
 
+  /*  @PostMapping("/login")
+    public String login(@Valid LoginForm form, BindingResult result, Model model){
+
+        if(result.hasErrors()) { // 바인딩 실패시
+            return "/loginForm";
+        }
+
+        System.out.println("form.getEmail() = " + form.getEmail());
+        System.out.println("form.getPassword() = " + form.getPassword());
+
+        Member loginMember = memberService.findLoginMember(form);
+
+        if(loginMember == null){
+            System.out.println("로그인 사용자 없음");
+        }
+
+        return "redirect:/";
+    }*/
 
 }

@@ -1,4 +1,4 @@
-package gitshop.gitjpashop.controller;
+package gitshop.gitjpashop.controller.form;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

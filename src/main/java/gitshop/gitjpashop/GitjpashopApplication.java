@@ -9,7 +9,6 @@ public class GitjpashopApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GitjpashopApplication.class, args);
-
 	}
 
 }
