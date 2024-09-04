@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{layout/layout_default}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
 
-<div layout:fragment="content">
-    <!-- css js -->
-    <link href="/css/member/memberForm.css" rel="stylesheet">
-    <!-- css js -->
+<link href="/css/member/memberForm.css" rel="stylesheet">
 
-    <form role="form" action="/member/register" th:object="${memberForm}" method="post">
+<body>
+    <form role="form" action="/css/member/register" th:object="${memberForm}" method="post">
         <div class="container">
             <h1>회원가입</h1>
             <hr>
@@ -54,9 +54,9 @@
             <button type="submit" class="registerbtn"><b>가입하기</b></button>
         </div> <!-- class="container" -->
 
-        <div class="signin">
+        <div class="container signin">
             <p>이미 아이디가 있으신가요? <a href="#">로그인</a> / <a href="#">아이디 찾기</a></p>
         </div>
     </form> <!-- form -->
-</div>
+</body>
 </html>

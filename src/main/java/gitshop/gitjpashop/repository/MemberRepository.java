@@ -4,6 +4,7 @@ import gitshop.gitjpashop.config.QueryDSLConfig;
 import gitshop.gitjpashop.domain.Member;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
