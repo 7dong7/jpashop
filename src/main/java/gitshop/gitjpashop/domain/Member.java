@@ -24,6 +24,7 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    // unizque = true DB 중복값 X
     @Column(unique = true, length = 50)
     private String email;
 

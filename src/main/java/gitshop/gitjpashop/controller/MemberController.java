@@ -1,6 +1,5 @@
 package gitshop.gitjpashop.controller;
 
-import gitshop.gitjpashop.controller.form.LoginForm;
 import gitshop.gitjpashop.controller.form.MemberForm;
 import gitshop.gitjpashop.domain.Address;
 import gitshop.gitjpashop.domain.Member;
@@ -31,21 +30,21 @@ public class MemberController {
     }
 
     @PostMapping("member/register")
-    public String create(@Valid MemberForm form, BindingResult result) {
+    public String create(@Valid MemberForm memberForm, BindingResult result) {
                         // bindingResult는 검증 객체 뒤에 와야 된다.
-
+        System.out.println("들어옴");
         if(result.hasErrors()) { // 바인딩 실패시
             return "member/memberForm";
         }
-
+        
         // 주소 입력
-        Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
+        Address address = new Address(memberForm.getCity(), memberForm.getStreet(), memberForm.getZipcode());
 
         // password 암호화
-        String encodePassword = passwordEncoder.encode(form.getPassword());
+        String encodePassword = passwordEncoder.encode(memberForm.getPassword());
 
         // 멤버 정보 입력
-        Member member = new Member(form.getEmail(), encodePassword, form.getName(), address, MemberRole.USER, MemberStatus.ING);
+        Member member = new Member(memberForm.getEmail(), encodePassword, memberForm.getName(), address, MemberRole.ROLE_USER, MemberStatus.ING);
 
         // 멤버 저장
         memberService.join(member);
@@ -53,34 +52,9 @@ public class MemberController {
         // 저장된 멤버 조회
 //        Member findMember = memberService.findOne(member.getId());
 
-        // 메인으로
-        return "redirect:/";
+        // 회원 등록 후 로그인 페이지
+        return "redirect:/login";
     }
 
-    // --------- 로그인 ---------
-    @GetMapping("/login")
-    public String loginPage(Model model){
-        model.addAttribute("loginForm", new LoginForm());
-        return "/loginForm";
-    }
-
-  /*  @PostMapping("/login")
-    public String login(@Valid LoginForm form, BindingResult result, Model model){
-
-        if(result.hasErrors()) { // 바인딩 실패시
-            return "/loginForm";
-        }
-
-        System.out.println("form.getEmail() = " + form.getEmail());
-        System.out.println("form.getPassword() = " + form.getPassword());
-
-        Member loginMember = memberService.findLoginMember(form);
-
-        if(loginMember == null){
-            System.out.println("로그인 사용자 없음");
-        }
-
-        return "redirect:/";
-    }*/
 
 }

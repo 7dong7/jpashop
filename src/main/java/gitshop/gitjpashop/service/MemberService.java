@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class MemberService {
     // 회원 등록
     @Transactional
     public void join(Member member) {
+        validateDuplicateMember(member);
         memberRepository.save(member);
     }
 
@@ -27,9 +29,20 @@ public class MemberService {
         return memberRepository.findOne(id);
     }
     
-    // 로그인
-    public Member findLoginMember(LoginForm form) {
-        return memberRepository.findLoginMember(form);
-    }
 
+
+
+
+
+    // 중복 검사 로직
+    private void validateDuplicateMember(Member member) {
+        Optional<Member> findByEmailMembers = memberRepository.findByEmail(member.getEmail());
+        if (findByEmailMembers.isPresent()) {
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        }
+        List<Member> findByNameMembers = memberRepository.findByName(member.getName());
+        if (!findByNameMembers.isEmpty()) {
+            throw new IllegalStateException("사용중인 이름입니다.");
+        }
+    }
 }
