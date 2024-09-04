@@ -5,7 +5,7 @@
 /* Add padding to containers */
 .container {
     margin: 0 30%;
-    padding: 16px;
+    padding: 100px 16px 16px 16px;
     background-color: white;
 }
 
@@ -57,6 +57,8 @@ a {
 
 /* Set a grey background color and center the text of the "sign in" section */
 .signin {
+    margin: 30px 30% 0 30%;
+    padding:16px;
     background-color: #f1f1f1;
     text-align: center;
 }

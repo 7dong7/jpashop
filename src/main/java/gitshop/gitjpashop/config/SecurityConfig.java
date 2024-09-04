@@ -3,20 +3,12 @@ package gitshop.gitjpashop.config;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  *  @Configuration 는 해당 클래스를 spring의 설정 클래스로 정의함
@@ -46,56 +38,34 @@ public class SecurityConfig{
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-                .requestMatchers("/css/**","/js/**","/images/**","/fonts/**");
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(auth -> auth
+                        .disable()) // 사이트 보안
                 .authorizeHttpRequests(authz -> authz // authorizeHttpRequests 메서드를 사용하여 각 URL 패턴에 대해 접근권한을 설정할 수 있다.
                         .requestMatchers("/","/login","member/register").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // /admin 주소에는 ADMIN 권한을 가진 사용자만 접근 가능
-                        .requestMatchers("/user/**").hasRole("USER") // /user 주소에는 USER 권한을 가진 사용자만 접근 가능
-
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/item/**").hasRole("USER")
+                        .anyRequest().authenticated() // 그 외의 모든 요청은 인증 필요
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")    // 작성한 로그인 페이지 
-                        .defaultSuccessUrl("/", true) // 로그인 성공 후 이동페이지
+                        .loginPage("/login")    // 로그인 기본 경로 (GET)
+                        .loginProcessingUrl("/login")   // POST
+//                        .usernameParameter("username") // 로그인 할때 사용되는 아이디
+//                        .passwordParameter("password") // 로그인 할때 사용되는 비밀번호
+                        .defaultSuccessUrl("/") // 로그인 성공 후 이동페이지 ("/", true)로 설정하면 url 요청페이지가 아니라 "/" 경로로 고정된다.
+//                        .failureUrl("/login")   // 로그인 실패시 이동 경로
                         .permitAll() // 누구나 접근 가능
                 )
                 .logout(logout -> logout
-                        .permitAll() // 로그아웃 허용
+                        .logoutUrl("/logout")   // 로그아웃
+                        .logoutSuccessUrl("/login") // 로그아웃 이후 이동 페이지
                 );
 
         return http.build();
     }
-
-    /*@Bean
-    public UserDetailsService userDetailsService(){
-        UserDetails user = User
-                .withUsername("email")
-                .password("password")
-                .roles("USER") // 유저 역할 부여
-                .build();
-        return  new InMemoryUserDetailsManager(user);
-    }*/
 }
-
-
-/*
-@Override
-protected void configure(HttpSecurity http) throws Exception {
-    http
-            .httpBasic().disable() // rest api 이므로 기본설정 사용안함. 기본설정은 비인증시 로그인폼 화면으로 리다이렉트 된다.
-            .csrf().disable() // rest api이므로 csrf 보안이 필요없으므로 disable처리.
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // jwt token으로 인증하므로 세션은 필요없으므로 생성안함.
-            .and()
-            .authorizeRequests() // 다음 리퀘스트에 대한 사용권한 체크
-            .antMatchers("/**").permitAll(); // 가입 및 인증 주소는 누구나 접근가능
-    //.antMatchers("/v1/**").permitAll() // 가입 및 인증 주소는 누구나 접근가능
-    //.anyRequest().hasRole("USER"); // 그외 나머지 요청은 모두 인증된 회원만 접근 가능
-}
-
-@Override
-public void configure(WebSecurity web) throws Exception {
-}*/

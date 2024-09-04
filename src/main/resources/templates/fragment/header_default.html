@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org">
+
+    <div th:fragment="header" class="header_backround_div">
+        <!-- css js -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        <link rel="stylesheet" href="/css/fragment/header_default.css" >
+        <!-- css js -->
+        <ul>
+            <div class="header_navbar_left_div">
+                <li><a th:href="@{/}"><i class="fa fa-fw fa-home"></i>홈</a></li>
+                <li><a th:href="@{item/itemList}"><i class="fa fa-fw fa-search"></i>상품목록</a></li>
+                <li><a th:href="@{item/itemRegister}"><i class="fa-solid fa-gift"></i>상품등록</a></li>
+                <li><a th:href="@{member/memberList}"><i class="fa fa-fw fa-search"></i>회원목록</a></li>
+            </div>
+            <div class="header_navbar_right_div">
+                <li><a th:href="@{login}"><i class="fa fa-fw fa-user"></i>로그인</a></li>
+                <li><a th:href="@{logout}"><i class="fa fa-fw fa-user"></i>로그아웃</a></li>
+            </div>
+        </ul>
+    </div> <!-- header_backround_div -->
+</html>

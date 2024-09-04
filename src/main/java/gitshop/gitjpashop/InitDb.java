@@ -34,7 +34,7 @@ public class InitDb {
             Address address = new Address("서울", "서대문구", "23412");
             String encodePassword = passwordEncoder.encode("qwerqwer");
             Member member = new Member("admin@naver.com", encodePassword,"관리자",
-                    address, MemberRole.ADMIN, MemberStatus.ING);
+                    address, MemberRole.ROLE_ADMIN, MemberStatus.ING);
             em.persist(member);
         }
 
@@ -71,7 +71,7 @@ public class InitDb {
         // 회원 생성자
         private Member createMember(String email, String password, String name, Address address) {
             String encodePassword = passwordEncoder.encode(password);
-            Member member = new Member(email, encodePassword, name, address, MemberRole.USER, MemberStatus.ING);
+            Member member = new Member(email, encodePassword, name, address, MemberRole.ROLE_USER, MemberStatus.ING);
             return member;
         }
     }

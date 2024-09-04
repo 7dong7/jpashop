@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout_default}">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="/css/loginForm.css" rel="stylesheet">
+<div layout:fragment="content">
+    <!-- css js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/loginForm.css">
+    <!-- css js -->
 
-<body>
     <div class="container">
-        <form action="/login" th:object="${loginForm}" method="post">
+        <form th:action="@{/login}" th:object="${loginForm}" method="post">
             <div class="row">
                 <h2 style="text-align:center">로그인</h2>
                 <div class="vl">
@@ -34,7 +34,7 @@
                         <p>Or sign in manually:</p>
                     </div>
 
-                    <input type="email" th:field="*{email}" placeholder="아이디" required>
+                    <input type="email" th:field="*{username}" placeholder="이메일" required>
                     <input type="password" th:field="*{password}" placeholder="비밀번호" required>
                     <input type="submit" value="로그인">
                 </div>
@@ -53,5 +53,5 @@
             </div>
         </div>
     </div>
-</body>
+</div>
 </html>

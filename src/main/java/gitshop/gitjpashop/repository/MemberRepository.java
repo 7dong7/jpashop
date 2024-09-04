@@ -1,13 +1,13 @@
 package gitshop.gitjpashop.repository;
 
 import gitshop.gitjpashop.config.QueryDSLConfig;
-import gitshop.gitjpashop.controller.form.LoginForm;
 import gitshop.gitjpashop.domain.Member;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class MemberRepository {
         em.persist(member);
     }
 
-    // 멤버 조회 - 1명
+    // 멤버 조회 id - 1명
     public Member findOne(Long id){
         return em.find(Member.class, id);
     }
@@ -39,12 +39,12 @@ public class MemberRepository {
                 .setParameter("name", name)
                 .getResultList();
     }
-    
-    // 멤버 로그인
-    public Member findLoginMember(LoginForm form) {
-        return em.createQuery("select m from Member m where m.email = :email and m.password = :password", Member.class)
-                .setParameter("email", form.getEmail())
-                .setParameter("password", form.getPassword())
-                .getSingleResult();
+
+    // 이메일 회원 조회 - 1명
+    public Optional<Member> findByEmail(String email) {
+        return em.createQuery("select m from Member m where m.email = :email", Member.class)
+                .setParameter("email", email)
+                .getResultList().stream().findAny();
     }
+
 }
