@@ -46,6 +46,10 @@ public class CustomUserDetails implements UserDetails {
         return member.getEmail();
     }
 
+    public Long getId() {
+        return member.getId();
+    }
+
     // ---- 특정한 상황에 대해서 이야기 함 ---- 계정의 잠금 여부  (테이블에 관련 컬럼을 추가해야됨)
     @Override
     public boolean isAccountNonExpired() {

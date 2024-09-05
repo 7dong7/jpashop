@@ -1,22 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hello</title>
-</head>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{layout/layout_default}">
 
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link href="/css/home.css" rel="stylesheet">
-
-<body>
-    <div class="navbar">
-        <a class="active" href="/"><i class="fa fa-fw fa-home"></i>홈</a>
-        <a href="item/itemList"><i class="fa fa-fw fa-search"></i>상품목록</a>
-        <a href="item/itemRegister"><i class="fa-solid fa-gift"></i>상품등록</a>
-        <a href="member/memberList"><i class="fa fa-fw fa-search"></i>회원목록</a>
-        <a href="login"><i class="fa fa-fw fa-user"></i>로그인</a>
+<div layout:fragment="content">
+    여기에 content를 작성하자
+    <div sec:authorize="isAuthenticated()">
+        <div sec:authentication="principal.authorities"></div>
     </div>
-</body>
+</div>
+
 </html>
