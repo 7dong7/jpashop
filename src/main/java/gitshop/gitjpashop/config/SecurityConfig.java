@@ -58,6 +58,8 @@ public class SecurityConfig{
                         .permitAll() // 누구나 접근 가능
                 )
                 .logout(logout -> logout
+                        .logoutUrl("/logout")   // 로그아웃
+                        .logoutSuccessUrl("/login") // 로그아웃 이후 이동 페이지
                         .permitAll() // 로그아웃 허용
                 );
 

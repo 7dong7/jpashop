@@ -34,10 +34,19 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
+li a:hover:not(.active), .button__logout:hover {
     background-color: #111;
 }
 
 .active {
     background-color: #04AA6D;
+}
+
+.button__logout {
+    border:none;
+    color: white;
+    font-size:16px;
+    font-family:'MalgunGothic', sans-serif;
+    background-color: #333;
+    padding: 14px 16px;
 }
