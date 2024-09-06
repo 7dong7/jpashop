@@ -5,6 +5,7 @@ import gitshop.gitjpashop.domain.Address;
 import gitshop.gitjpashop.domain.Member;
 import gitshop.gitjpashop.domain.MemberRole;
 import gitshop.gitjpashop.domain.MemberStatus;
+import gitshop.gitjpashop.dto.ValidationSequence;
 import gitshop.gitjpashop.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,8 +32,8 @@ public class MemberController {
     }
 
     @PostMapping("member/register")
-    public String create(@Valid MemberForm memberForm, BindingResult result) {
-                        // bindingResult는 검증 객체 뒤에 와야 된다.
+    public String create(@Validated(ValidationSequence.class) MemberForm memberForm, BindingResult result) {
+                                            // bindingResult는 검증 객체 뒤에 와야 된다.
         System.out.println("들어옴");
         if(result.hasErrors()) { // 바인딩 실패시
             return "member/memberForm";

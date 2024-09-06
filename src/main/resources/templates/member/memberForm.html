@@ -1,41 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout_default}">
 
-<link href="/css/member/memberForm.css" rel="stylesheet">
 
-<body>
-    <form role="form" action="/css/member/register" th:object="${memberForm}" method="post">
+
+<div layout:fragment="content">
+    <!-- css js -->
+    <link rel="stylesheet" href="/css/member/memberForm.css">
+    <script type="text/javascript" th:src="@{/js/member/memberForm.js}"></script>
+    <!-- css js -->
+
+    <form id="memberForm" role="form" method="post" th:action="@{/member/register}" th:object="${memberForm}" >
         <div class="container">
             <h1>회원가입</h1>
             <hr>
 
-            <label for="email"><b>아이디</b></label>
-            <input type="email" th:field="*{email}" placeholder="이메일(아이디)을 입력하세요"
-                   th:class="${#fields.hasErrors('email')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('email')}"
-                th:errors="*{email}"></p>
+            <div class="data_field_set">
+                <label for="email"><b>아이디</b></label>
+                <input type="email" th:field="*{email}" placeholder="이메일(아이디)을 입력하세요"
+                       th:class="${#fields.hasErrors('email')}? 'form-control fieldError' : 'form-control'">
+                <p class="data_error" th:if="${#fields.hasErrors('email')}"
+                   th:errors="*{email}"></p>
+            </div>
 
-            <label for="password"><b>비밀번호</b></label>
-            <input type="password" th:field="*{password}" placeholder="비밀번호를 입력하세요"
-                   th:class="${#fields.hasErrors('password')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('password')}"
-               th:errors="*{password}"></p>
+            <div class="data_field_set">
+                <label for="password"><b>비밀번호</b></label>
+                <input type="password" th:field="*{password}" placeholder="비밀번호를 입력하세요"
+                       th:class="${#fields.hasErrors('password')}? 'form-control fieldError' : 'form-control'">
 
-            <input type="password"  placeholder="비밀번호를 다시 입력하세요"
-                   id="password-repeaet" name="password-repeaet"
-                   th:class="${#fields.hasErrors('password')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('password')}"
-               th:errors="*{password}"></p>
+                <input type="password"  placeholder="비밀번호를 다시 입력하세요"
+                       id="password-repeat" name="password_repeat"
+                       th:class="${#fields.hasErrors('password')}? 'form-control fieldError' : 'form-control'">
+                <p class="data_error pwd_error" th:if="${#fields.hasErrors('password')}"
+                   th:errors="*{password}"></p>
+            </div>
 
-            <label for="name"><b>이름</b></label>
-            <input type="text" th:field="*{name}" placeholder="이름를 입력하세요"
-                   th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('name')}"
-               th:errors="*{name}"></p>
+            <div class="data_field_set">
+                <label for="name"><b>이름</b></label>
+                <input type="text" th:field="*{name}" placeholder="이름를 입력하세요"
+                       th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+                <p class="data_error" th:if="${#fields.hasErrors('name')}"
+                   th:errors="*{name}"></p>
+            </div>
 
             <hr>
 
@@ -55,8 +62,8 @@
         </div> <!-- class="container" -->
 
         <div class="container signin">
-            <p>이미 아이디가 있으신가요? <a href="#">로그인</a> / <a href="#">아이디 찾기</a></p>
+            <p>이미 아이디가 있으신가요? <a th:href="@{/login}">로그인</a> / <a href="#">아이디 찾기</a></p>
         </div>
     </form> <!-- form -->
-</body>
+</div>
 </html>

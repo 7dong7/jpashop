@@ -34,8 +34,12 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active), .button__logout:hover {
+li a:hover, .button__logout:hover {
     background-color: #111;
+}
+
+li a:hover:active, .button__logout:hover:active {
+    background-color:#4b4b4b;
 }
 
 .active {

@@ -12,18 +12,18 @@
         <ul>
             <div class="header_navbar_left_div">
                 <li><a th:href="@{/}"><i class="fa fa-fw fa-home"></i>홈</a></li>
-                <li><a th:href="@{item/itemList}"><i class="fa fa-fw fa-search"></i>상품목록</a></li>
-                <li><a th:href="@{item/itemRegister}"><i class="fa-solid fa-gift"></i>상품등록</a></li>
-                <li><a th:href="@{member/memberList}"><i class="fa-solid fa-users"></i>회원목록</a></li>
-                <li><a th:href="@{item/itemList}"><i class="fa-solid fa-comment"></i>게시판</a></li>
+                <li><a th:href="@{/item/itemList}"><i class="fa fa-fw fa-search"></i>상품목록</a></li>
+                <li><a th:href="@{/item/itemRegister}"><i class="fa-solid fa-gift"></i>상품등록</a></li>
+                <li><a th:href="@{/member/memberList}"><i class="fa-solid fa-users"></i>회원목록</a></li>
+                <li><a th:href="@{/item/itemList}"><i class="fa-solid fa-comment"></i>게시판</a></li>
             </div>
             <div class="header_navbar_right_div">
                 <div sec:authorize="isAnonymous()">
-                    <li ><a th:href="@{login}"><i class="fa fa-fw fa-user"></i>로그인</a></li>
+                    <li ><a th:href="@{/login}"><i class="fa fa-fw fa-user"></i>로그인</a></li>
                 </div>
 
                 <div sec:authorize="isAuthenticated()">
-                    <li><a th:href="@{member/info}" sec:authentication="name"></a></li>
+                    <li><a th:href="@{/member/info}" sec:authentication="name"></a></li>
                     <li><form method="post" th:action="@{/logout}" ><button class="button__logout" type="submit"><i class="fa-solid fa-door-open"></i></i>로그아웃</button></form></li>
                 </div>
             </div>
