@@ -7,11 +7,26 @@
     <title>Title</title>
 </head>
 
-<div layout:fragment="content">
+<div class="post_table_div" layout:fragment="content">
     <!-- css js -->
     <link rel="stylesheet" href="/css/post/post.css">
     <!-- css js -->
-
-</div> <!-- layout:fragment="content" -->
+    <table class="post_table">
+        <tr>
+            <th class="post_id_th">번호</th>
+            <th class="title_th">내용</th>
+            <th class="name_th">작성자</th>
+            <th class="create_date_th">등록날짜</th>
+            <th class="view_count_th">조회수</th>
+        </tr>
+        <tr th:each = " post : ${postList}">
+            <td th:text="${post.post_id}"></td>
+            <td class="text_left_td" th:text="${post.title}"></td>
+            <td th:text="${post.name}"></td>
+            <td th:text="${post.createdDate}"></td>
+            <td th:text="${post.viewCount}"></td>
+        </tr>
+    </table> <!-- post_table -->
+</div> <!-- layout:fragment="content" --> <!-- post_table_div -->
 
 </html>

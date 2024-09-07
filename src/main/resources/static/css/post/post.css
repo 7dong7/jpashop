@@ -1,20 +1,49 @@
+/* 부모 요소를 그리드 컨테이너로 설정하여 자식 요소를 가운데로 배치 */
 
-h2 {
+.post_table_div {
+    display: grid;
+    place-items: center; /* 가로 세로 중앙 배치 */
+    margin:100px;
+}
+
+.post_table_div {
+    width: auto; /* 테이블 크기에 맞게 설정 */
+    padding: 20px; /* 여백 설정 */
+}
+
+.post_table {
+    width: 1200px;
+    max-width: 80%; /* 최대 너비 설정 */
+    border-collapse: collapse;
+}
+
+.post_table th, .post_table td {
+    padding: 10px;
+    border: 1px solid #ddd;
     text-align: center;
-    padding: 20px 0;
 }
 
-table caption {
-    padding: .5em 0;
+/* 테이블 width 조절 */
+.post_table .post_id_th {
+    width:10%;
 }
 
-table.dataTable th,
-table.dataTable td {
-    white-space: nowrap;
+.post_table .title_th {
 }
 
-.p {
-    text-align: center;
-    padding-top: 140px;
-    font-size: 14px;
+.post_table .name_th {
+    width:14%;
+}
+
+.post_table .create_date_th {
+    width:20%;
+}
+
+.post_table .view_count_th {
+    width:10%;
+}
+
+/* 내용 left 정렬*/
+.text_center_td {
+    text-align:left;
 }

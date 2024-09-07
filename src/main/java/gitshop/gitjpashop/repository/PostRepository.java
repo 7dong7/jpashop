@@ -15,6 +15,8 @@ public class PostRepository {
     private final EntityManager em;
 
     public List<Post> getPostList() {
-        return em.createQuery("select p from Post p", Post.class).getResultList();
+
+        return em.createQuery("select p from Post p order by p.id desc", Post.class)
+                .getResultList();
     }
 }
