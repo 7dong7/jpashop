@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Component
 @RequiredArgsConstructor
 public class InitDb {
@@ -51,6 +53,12 @@ public class InitDb {
             em.persist(item1);
             Item item2 = new Item("솜사탕 50g", 2500, 200, member1);
             em.persist(item2);
+
+            // 게시글 등록1
+            for (int i=0; i<150; i++) {
+                Post post1 = new Post("내가 글씀"+i, "오늘 내가 글은 쓴 날임"+i, member1, 0);
+                em.persist(post1);
+            }
         }
 
         // 회원2
@@ -66,6 +74,12 @@ public class InitDb {
             em.persist(item1);
             Item item2 = new Item("빨대 200개입", 8000, 89, member2);
             em.persist(item2);
+
+            // 게시글 등록2
+            for (int i=0; i<150; i++) {
+                Post post2 = new Post("내가 글씀 두번째"+i, "오늘 내가 글은 쓴 날임 반드"+i, member2, 0);
+                em.persist(post2);
+            }
         }
 
         // 회원 생성자

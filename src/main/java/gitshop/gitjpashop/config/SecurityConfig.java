@@ -47,7 +47,7 @@ public class SecurityConfig{
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz // authorizeHttpRequests 메서드를 사용하여 각 URL 패턴에 대해 접근권한을 설정할 수 있다.
-                        .requestMatchers("/","/login","member/register").permitAll()
+                        .requestMatchers("/","/login","/member/register","/board/board").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN") // /admin 주소에는 ADMIN 권한을 가진 사용자만 접근 가능
                         .requestMatchers("/item/**").hasRole("USER") // /item 주소에는 USER 권한을 가진 사용자만 접근 가능
                         .anyRequest().permitAll()
