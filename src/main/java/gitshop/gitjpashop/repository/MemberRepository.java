@@ -16,7 +16,7 @@ public class MemberRepository {
 // 멤버 레포지토리
 
     private final EntityManager em;
-    private final QueryDSLConfig qf;
+    private final QueryDSLConfig query;
 
     // 멤버 등록 - 1명
     public void save(Member member){

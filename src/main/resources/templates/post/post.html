@@ -2,10 +2,6 @@
 <html
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout/layout_default}">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
 
 <div class="post_table_div" layout:fragment="content">
     <!-- css js -->
@@ -27,6 +23,34 @@
             <td th:text="${post.viewCount}"></td>
         </tr>
     </table> <!-- post_table -->
+
+    <!-- 페이징 처리 -->
+    <table class="post_table">
+        <tr>
+            <th class="post_id_th">번호</th>
+            <th class="title_th">내용</th>
+            <th class="name_th">작성자</th>
+            <th class="create_date_th">등록날짜</th>
+            <th class="view_count_th">조회수</th>
+        </tr>
+        <tr th:each="post : ${page.content}">
+            <td th:text="${post.id}">1</td>
+            <td class="text_left_td" th:text="${post.title}">제목</td>
+            <td th:text="${post.name}">작성자</td>
+            <td th:text="${post.createdDate}">2024-09-07</td>
+            <td th:text="${post.viewCount}">1</td>
+        </tr>
+    </table>
+    <div>
+        <span th:if="${postPage.hasPrevious()}">
+            <a th:href="@{/posts(page=${postPage.number - 1}, size=${postPage.size})}">이전</a>
+        </span>
+        <span th:text="${postPage.number + 1}">1</span> / <span th:text="${postPage.totalPages}">10</span>
+        <span th:if="${postPage.hasNext()}">
+            <a th:href="@{/posts(page=${postPage.number + 1}, size=${postPage.size})}">다음</a>
+        </span>
+    </div>
+
 </div> <!-- layout:fragment="content" --> <!-- post_table_div -->
 
 </html>
